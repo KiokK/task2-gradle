@@ -1,0 +1,57 @@
+plugins {
+    id 'java-library'
+}
+
+version = '0.1.0'
+group 'org.clevertec'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    withSourcesJar()
+    withJavadocJar()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    implementation 'org.apache.commons:commons-lang3:3.10'
+    api 'org.apache.commons:commons-math3:3.6.1'
+
+    implementation 'com.google.guava:guava:31.1-jre'
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Main-Class': "${project.group}.MainClass")
+    }
+}
+
+test {
+    useJUnitPlatform()
+    maxHeapSize = '1G'
+
+    testLogging {
+        events "PASSED", "SKIPPED", "FAILED", "STANDARD_OUT", "STANDARD_ERROR"
+    }
+
+    filter {
+        includeTestsMatching "org.clevertec.*"
+    }
+}
+
+reporting.baseDir = "my-reports"
+testResultsDirName = "$buildDir/my-test-results"
+
+tasks.register('showDirs') {
+    doLast {
+        logger.quiet(rootDir.toPath().relativize(project.reportsDir.toPath()).toString())
+        logger.quiet(rootDir.toPath().relativize(project.testResultsDir.toPath()).toString())
+    }
+}
+
