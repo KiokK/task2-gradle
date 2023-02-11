@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
 }
 
-version = '0.1.0'
+version = '1.3.5'
 group 'org.clevertec'
 
 repositories {
@@ -26,10 +26,11 @@ dependencies {
 
 jar {
     manifest {
-        attributes('Implementation-Title': project.name,
-                'Implementation-Version': project.version,
-                'Main-Class': "${project.group}.MainClass")
+        attributes('Implementation-Title': 'utils',
+                'Implementation-Version': project.version)
     }
+    baseName 'utils'
+    destinationDirectory.set(file("$rootDir/libs"))
 }
 
 test {
