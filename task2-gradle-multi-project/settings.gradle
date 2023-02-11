@@ -1,0 +1,6 @@
+rootProject.name = 'task2-gradle-multi-project'
+
+include 'app'
+include 'core'
+//include 'buildSrc'
+
