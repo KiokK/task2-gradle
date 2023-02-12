@@ -1,0 +1,20 @@
+plugins {
+    id 'myproject.java-conventions'
+    id 'application'
+}
+
+application {
+    mainClass = "${project.group}.Main"
+}
+
+dependencies {
+    implementation project(':core')
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Main-Class': "${project.group}.Main")
+    }
+}
